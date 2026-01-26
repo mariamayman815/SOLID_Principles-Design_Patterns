@@ -14,7 +14,7 @@ In simpler terms:
 
 ### ❓ Module vs Class
 
-* A **Class** is a construct in OOP languages (like Java) that combines data and methods together.
+* A **Class** is a construct in OOP languages that combines data and methods together.
 
 ```java
 class Car {
@@ -114,7 +114,6 @@ Separation of Concerns means **dividing the program into distinct parts**, each 
 
 > Separation of Concerns is a design principle for separating a computer program into distinct sections, such that each section addresses a separate concern.
 
-Source: [Wikipedia – Separation of Concerns](https://en.wikipedia.org/wiki/Separation_of_concerns)
 
 ### What is a Concern?
 
@@ -134,7 +133,6 @@ Two things are separate concerns if:
 * They change for different reasons
 * Different people are working on them
 
-Source: [Martin Fowler – Separation of Concerns](https://martinfowler.com/bliki/SeparationOfConcerns.html)
 
 ### Why mixing concerns is bad
 
@@ -154,7 +152,6 @@ Source: [Martin Fowler – Separation of Concerns](https://martinfowler.com/blik
   * Changing calculations risks the whole system
 * This is called **Tight Coupling** and violates SoC
 
-Source: [Microsoft – Software Architecture Patterns](https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/)
 
 ### Benefits of separating concerns
 
@@ -171,7 +168,6 @@ Source: [Microsoft – Software Architecture Patterns](https://learn.microsoft.c
 * Easier testing
 * Better for teamwork
 
-Source: [Clean Architecture – Robert C. Martin](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 ### Relation to SOLID and SRP
 
@@ -179,7 +175,6 @@ Source: [Clean Architecture – Robert C. Martin](https://blog.cleancoder.com/un
 * **SRP** is a specific application of SoC at the class/module level
 * SRP says: "Make each class or module responsible for only one concern"
 
-Source: [Wikipedia – Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle)
 
 ### Mental Summary
 
@@ -221,3 +216,77 @@ class StudentUI {
 * Changes in one module don’t affect others
 * Follows SoC and SRP
 
+## 8) Popular Applications of Separation of Concerns
+
+### 8.1 MVC (Model – View – Controller)
+
+* **MVC** is an architectural pattern that splits the program into 3 clear parts, each with a separate concern.
+* MVC = direct application of Separation of Concerns
+
+**Components:**
+
+* **Model:** Handles data, business logic, and calculations
+* **View:** Responsible for display and UI
+* **Controller:** Handles user commands and coordinates between Model and View
+
+**Example:**
+
+* Change UI → affects **View** only
+* Change calculations → affects **Model** only
+* Change button behavior → affects **Controller** only
+
+Sources:
+
+
+### 8.2 Clean Architecture
+
+* Proposed by Robert C. Martin (Uncle Bob)
+* Goal: Separation of concerns + reduce dependencies between parts
+
+**Layers (inside out):**
+
+1. Entities – core system rules
+2. Use Cases – application logic
+3. Interface Adapters – data transformation
+4. Frameworks & UI – database, UI, web, etc.
+
+**Rule:** Inner layers never depend on outer layers
+
+**Benefits:**
+
+* Change DB → core logic unaffected
+* Change UI → calculations remain intact
+
+
+
+### 8.3 Microservices
+
+* Builds large systems by splitting into small, independent services
+* Each service:
+
+  * Has a single clear function
+  * Runs independently
+  * Communicates via API
+
+**Example:**
+
+* Monolithic program: Users, Orders, Payments
+* Microservices: User Service, Order Service, Payment Service
+
+**Benefits:**
+
+* Each service = one concern
+* One team can work independently
+* Changing one service doesn’t break others
+
+
+
+### Key Takeaway
+
+| Concept            | SoC applied at               |
+| ------------------ | ---------------------------- |
+| MVC                | UI and interaction level     |
+| Clean Architecture | System-wide level            |
+| Microservices      | Large system / service level |
+
+* Separation of Concerns is the foundation, and these are ways to apply it at different levels.
