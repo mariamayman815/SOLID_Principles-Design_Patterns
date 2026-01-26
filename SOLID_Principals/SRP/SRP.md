@@ -1,4 +1,4 @@
-# Single Responsibility Principle (SRP) and Separation of Concerns
+# Single Responsibility Principle (SRP) 
 
 ## 1) Definition
 
@@ -220,3 +220,4 @@ class StudentUI {
 * Each class/module has one concern
 * Changes in one module don’t affect others
 * Follows SoC and SRP
+
