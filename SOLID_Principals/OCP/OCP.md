@@ -180,5 +180,6 @@ Design patterns help extend behavior without modifying existing code.
 
 If SRP separates responsibilities, OCP protects stable code from risky changes.
 
----
+
+
 
