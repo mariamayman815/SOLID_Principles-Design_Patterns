@@ -25,7 +25,6 @@ public class PaymentProcessor {
     }
 }
 
-
 /*
 
 1.Validation rules
