@@ -34,11 +34,11 @@ So inheritance must preserve behavior, not change it.
 
 A child class:
 
-❌ must NOT add new constraints  
-❌ must NOT change expected behavior  
-❌ must NOT break parent logic  
+  must NOT add new constraints  
+  must NOT change expected behavior  
+  must NOT break parent logic  
 
-✅ must respect the same contract
+  must respect the same contract
 
 If the child changes how the parent works → LSP is violated.
 
@@ -48,11 +48,11 @@ If the child changes how the parent works → LSP is violated.
 
 Mathematically:
 
-Square is a Rectangle ✅
+Square is a Rectangle 
 
 But programmatically:
 
-It breaks behavior ❌
+It breaks behavior 
 
 Let’s see why.
 
@@ -131,7 +131,7 @@ So Square:
 
 Therefore:
 
-❌ LSP is violated
+  LSP is violated
 
 ---
 
@@ -155,7 +155,7 @@ So inheritance is the wrong tool.
 
 Instead of:
 
-Square extends Rectangle ❌
+Square extends Rectangle 
 
 Use:
 
@@ -238,7 +238,7 @@ area()
 
 So:
 
-✅ LSP satisfied
+ LSP satisfied
 
 ---
 
@@ -253,7 +253,7 @@ If the subclass:
 
 Then:
 
-👉 Use abstraction or composition instead of inheritance
+  Use abstraction or composition instead of inheritance
 
 Inheritance should model behavior similarity, not mathematical similarity.
 
@@ -283,3 +283,4 @@ Good inheritance should be invisible and safe.
 
 If OCP protects stable code from modification,
 LSP protects inheritance from misuse.
+
