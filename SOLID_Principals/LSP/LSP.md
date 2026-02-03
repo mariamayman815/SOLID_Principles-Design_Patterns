@@ -1,40 +1,66 @@
-Liskov Substitution Principle (LSP)
-Definition
+# Liskov Substitution Principle (LSP)
 
-The Liskov Substitution Principle states:
+## 1) Definition
 
-Objects of a superclass should be replaceable with objects of its subclasses without breaking the correctness of the program.
+The **Liskov Substitution Principle (LSP)** states:
 
-In simple terms, a subclass must be usable anywhere its parent is expected without changing the behavior of the program.
+> Subtypes must be substitutable for their base types without breaking the correctness of the program.
 
-Intuition
+This means:
 
-If we have:
+- Open for substitution → child can replace parent
+- Closed for surprises → behavior must stay consistent
 
-Parent
-↑
-Child
+In simple words:
 
-Then the following should always work safely:
+If B extends A, you should use B anywhere A is expected without breaking the program.
 
-Parent p = new Child();
+---
 
-The program should behave exactly the same as when using the parent itself.
+## 2) Why is LSP important?
 
-There must be:
+When inheritance is misused:
 
-no unexpected behavior
+- Code becomes unpredictable
+- Polymorphism breaks
+- Bugs appear at runtime
+- Maintenance becomes harder
 
-no special conditions
+So inheritance must preserve behavior, not change it.
 
-no runtime errors
+---
 
-no broken logic
+## 3) The Core Rule
 
-A subclass must behave like a true substitute for its parent.
+A child class:
 
-Classic Violation – Rectangle and Square
-Rectangle
+❌ must NOT add new constraints  
+❌ must NOT change expected behavior  
+❌ must NOT break parent logic  
+
+✅ must respect the same contract
+
+If the child changes how the parent works → LSP is violated.
+
+---
+
+## 4) Classic Problem – Rectangle & Square
+
+Mathematically:
+
+Square is a Rectangle ✅
+
+But programmatically:
+
+It breaks behavior ❌
+
+Let’s see why.
+
+---
+
+## 5) Bad Example (Violates LSP)
+
+```java
 class Rectangle {
     protected int width;
     protected int height;
@@ -52,7 +78,6 @@ class Rectangle {
     }
 }
 
-Square (Incorrect Design)
 class Square extends Rectangle {
 
     @Override
@@ -65,67 +90,95 @@ class Square extends Rectangle {
         width = height = h;
     }
 }
+```
 
-Test
+### Usage
+
+```java
 Rectangle r = new Square();
 
 r.setWidth(5);
 r.setHeight(4);
 
 System.out.println(r.area());
+```
 
+### Expected
 
-Expected result: 20
-Actual result: 16
+20
 
-The behavior changed even though we used the parent reference.
-This breaks LSP.
+### Actual
 
-Why This Design Is Wrong
+16
 
-Mathematically, a square is a rectangle.
-But in software design, this inheritance is incorrect.
+---
 
-Because:
+## 6) Why is this wrong?
 
-Rectangle allows width ≠ height
+Rectangle allows:
 
-Square forces width = height
+width ≠ height
 
-The subclass adds stricter constraints and changes behavior.
+But Square forces:
 
-A subclass must NOT:
+width = height
 
-add new constraints
+So Square:
 
-change behavior
+- adds extra constraints
+- changes behavior
+- breaks expectations
 
-reduce capabilities
+Therefore:
 
-break parent assumptions
+❌ LSP is violated
 
-Square violates all of these.
+---
 
-Correct Design – Use Abstraction Instead of Inheritance
+## 7) The Real Design Problem
+
+The issue is:
+
+We used inheritance when there is no true behavioral “is-a” relationship.
+
+Square is not a special Rectangle in behavior.
+
+Instead:
+
+They are just different shapes.
+
+So inheritance is the wrong tool.
+
+---
+
+## 8) Correct Design Idea
 
 Instead of:
 
-Square → Rectangle
+Square extends Rectangle ❌
 
-Use a shared abstraction:
+Use:
 
-Rectangle → Shape
+Rectangle → Shape  
 Square → Shape
 
-Both are simply shapes, not specializations of each other.
+Common abstraction without forcing wrong inheritance.
 
-Professional Solution
-Abstraction
+---
+
+## 9) Good Example (Applies LSP)
+
+### Step 1 – Create abstraction
+
+```java
 interface Shape {
     int area();
 }
+```
 
-Rectangle
+### Step 2 – Rectangle independent
+
+```java
 class Rectangle implements Shape {
     private int width;
     private int height;
@@ -135,13 +188,15 @@ class Rectangle implements Shape {
         this.height = h;
     }
 
-    @Override
     public int area() {
         return width * height;
     }
 }
+```
 
-Square
+### Step 3 – Square independent
+
+```java
 class Square implements Shape {
     private int side;
 
@@ -149,116 +204,82 @@ class Square implements Shape {
         this.side = side;
     }
 
-    @Override
     public int area() {
         return side * side;
     }
 }
+```
 
-Usage
+### Usage
+
+```java
 Shape s1 = new Rectangle(5, 4);
 Shape s2 = new Square(5);
 
 System.out.println(s1.area());
 System.out.println(s2.area());
+```
 
+---
+
+## 10) Why this design is correct?
 
 Now:
 
-no incorrect inheritance
+- No weird overrides
+- No hidden constraints
+- No broken behavior
+- Each class handles its own responsibility
+- Substitution works perfectly
 
-no strange overrides
+Both follow the same contract:
 
-each class is independent
+area()
 
-substitution works correctly
+So:
 
-LSP is satisfied.
+✅ LSP satisfied
 
-Correct Example of LSP
-Payment abstraction
-interface Payment {
-    void pay(double amount);
-}
+---
 
-Implementations
-class CashPayment implements Payment {
-    public void pay(double amount) {
-        System.out.println("Cash paid " + amount);
-    }
-}
+## 11) When to avoid inheritance
 
-class CardPayment implements Payment {
-    public void pay(double amount) {
-        System.out.println("Card paid " + amount);
-    }
-}
+If the subclass:
 
-Usage
-Payment p = new CashPayment();
-p.pay(100);
+- changes logic
+- adds restrictions
+- overrides heavily
+- or feels forced
 
-p = new CardPayment();
-p.pay(100);
+Then:
 
+Use abstraction or composition instead of inheritance
 
-Both behave consistently with the same expectations.
-This respects LSP.
+Inheritance should model behavior similarity, not mathematical similarity.
 
-Another Common Violation – Bird Example
-Bad design
-class Bird {
-    void fly() {}
-}
+---
 
-class Penguin extends Bird {
-    void fly() {
-        throw new UnsupportedOperationException();
-    }
-}
+## 12) The Golden Rule of LSP
 
+If replacing the parent object with the child:
 
-Penguins cannot fly, so the subclass breaks the parent behavior.
-This violates LSP.
+- breaks functionality
+- changes results
+- or surprises the user
 
-Correct Design
-interface Bird {}
+Your design violates LSP.
 
-interface FlyingBird extends Bird {
-    void fly();
-}
+Good inheritance should be invisible and safe.
 
-class Sparrow implements FlyingBird {}
+---
 
-class Penguin implements Bird {}
+## 13) Summary
 
+- Child must behave like parent
+- Do not change expectations
+- Do not add constraints
+- Prefer abstraction when behavior differs
+- Rectangle–Square inheritance is a common LSP trap
 
-Each class implements only what it can actually do.
-No broken behavior.
-LSP satisfied.
-
-How to Detect LSP Violations
-
-Common warning signs:
-
-frequent use of instanceof
-
-throwing UnsupportedOperationException
-
-overriding methods that change behavior drastically
-
-subclasses that cannot fully support parent operations
-
-If you see these signs, inheritance is probably incorrect.
-
-Design Rule to Remember
-
-If a subclass changes the parent logic, adds constraints, or breaks expectations, do not use inheritance.
-
-Prefer:
-
-abstraction
-
-interfaces
-
-composition
+If OCP protects stable code from modification,
+LSP protects inheritance from misuse.
