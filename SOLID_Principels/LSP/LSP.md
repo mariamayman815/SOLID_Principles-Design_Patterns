@@ -267,6 +267,8 @@ If replacing the parent object with the child:
 - changes results
 - or surprises the user
 
+If inheritance forces you to override a method just to disable it, print "not supported", or throw an exception.
+
 Your design violates LSP.
 
 Good inheritance should be invisible and safe.
@@ -283,4 +285,5 @@ Good inheritance should be invisible and safe.
 
 If OCP protects stable code from modification,
 LSP protects inheritance from misuse.
+
 
