@@ -63,5 +63,24 @@ makeBirdFly(new Ostrich());//Can't fly ❌ ,where is the problem?? the problem i
                           // and this is called ->  "Surprise behavior", and LSP said "Subclasses should not surprise the client"
 
 
+// ---------------------------Solution---------------------------
+// --(Interface segregation)--
+class Bird {
+}
+
+interface Flyable {
+    void fly();
+}
+
+class Sparrow extends Bird implements Flyable {
+    public void fly() {
+        System.out.println("Flying...");
+    }
+}
+
+class Ostrich extends Bird {
+}
+
+// if we have -> Flyable f,so i'm sure 100% it's flying 
 
 
