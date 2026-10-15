@@ -12,7 +12,7 @@ In simpler terms:
 
 > "A class should have only one reason to change."
 
-### ❓ Module vs Class
+###  Module vs Class
 
 * A **Class** is a construct in OOP languages that combines data and methods together.
 
