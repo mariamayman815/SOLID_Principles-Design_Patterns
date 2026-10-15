@@ -58,7 +58,7 @@ void makeBirdFly(Bird b) {
 } //programmers write it (every bird flying) 
 //case 1 ->
 makeBirdFly(new Bird());// flying ✔
-makeBirdFly(new Ostrich());//Can't fly ❌ ,where is the problem?? the problem is this function suppose that every bird fly 
+makeBirdFly(new Ostrich());//Can't fly  ,where is the problem?? the problem is this function suppose that every bird fly 
                           // but behavior of this function changed, same type(bird) same method (fly()) but the result is diff.
                           // and this is called ->  "Surprise behavior", and LSP said "Subclasses should not surprise the client"
 
